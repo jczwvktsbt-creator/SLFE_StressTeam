@@ -6,7 +6,7 @@ from tkinter import messagebox
 from pathlib import Path
 
 # --- AUTHORISED USERS ---
-ALLOWED_USERS = ["mohammed.ali2", "admin", "engineer1", "engineer2"]
+ALLOWED_USERS = ["mohammed.ali2", "admin", "engineer1", "mohammedahmedalisult"]
 
 # --- EMBEDDED FILE LOGIC ---
 if getattr(sys, 'frozen', False):
