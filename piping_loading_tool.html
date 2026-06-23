@@ -114,10 +114,19 @@
             flex-wrap: wrap;
             align-items: center;
         }
-        .btn-filter {
-            background-color: #f1f5f9;
-            color: #334155;
-            border: 1px solid #cbd5e1;
+        /* All toolbar action buttons now share one uniform brand color treatment.
+           Hover/active/disabled states still differ so users can tell what's clickable
+           and what's currently selected, but the base color is consistent everywhere. */
+        .btn-filter,
+        .btn-custom-user,
+        .btn-critical,
+        .btn-uplift-force,
+        .btn-text-match,
+        .btn-export-structure,
+        .btn-view-toggle {
+            background-color: var(--brand-accent);
+            color: #ffffff;
+            border: 1px solid var(--brand-ink);
             padding: 9px 16px;
             font-size: 13px;
             font-weight: 600;
@@ -125,108 +134,43 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .btn-filter:hover:not(:disabled) {
-            background-color: #e2e8f0;
-            border-color: #94a3b8;
+        .btn-filter:hover:not(:disabled),
+        .btn-custom-user:hover:not(:disabled),
+        .btn-critical:hover:not(:disabled),
+        .btn-uplift-force:hover:not(:disabled),
+        .btn-text-match:hover:not(:disabled),
+        .btn-export-structure:hover:not(:disabled),
+        .btn-view-toggle:hover:not(:disabled) {
+            background-color: var(--brand-ink);
         }
-        .btn-filter.active {
-            background-color: #2563eb;
+        .btn-filter.active,
+        .btn-custom-user.active,
+        .btn-critical.active,
+        .btn-uplift-force.active,
+        .btn-text-match.active,
+        .btn-view-toggle.active {
+            background-color: var(--brand-ink);
             color: white;
-            border-color: #1d4ed8;
+            border-color: #1b3340;
+            box-shadow: inset 0 0 0 2px rgba(255,255,255,0.45);
         }
-        .btn-filter:disabled {
+        .btn-filter:disabled,
+        .btn-custom-user:disabled,
+        .btn-critical:disabled,
+        .btn-uplift-force:disabled,
+        .btn-text-match:disabled,
+        .btn-export-structure:disabled,
+        .btn-view-toggle:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-        }
-        .btn-custom-user {
-            background-color: #0d9488;
-            color: white;
-            border-color: #0f766e;
-        }
-        .btn-custom-user:hover:not(:disabled) {
-            background-color: #0f766e;
-        }
-        .btn-custom-user.active {
-            background-color: #115e59;
-            border-color: #134e4a;
-        }
-        .btn-critical {
-            background-color: #dc2626;
-            color: white;
-            border-color: #991b1b;
-        }
-        .btn-critical:hover:not(:disabled) {
-            background-color: #b91c1c;
-        }
-        .btn-critical.active {
-            background-color: #991b1b;
-            border-color: #7f1d1d;
-        }
-        .btn-uplift-force {
-            background-color: #16a34a;
-            color: white;
-            border-color: #15803d;
-        }
-        .btn-uplift-force:hover:not(:disabled) {
-            background-color: #15803d;
-        }
-        .btn-uplift-force.active {
-            background-color: #166534;
-            border-color: #14532d;
-        }
-        .btn-text-match {
-            background-color: #c2410c;
-            color: white;
-            border-color: #9a3412;
-        }
-        .btn-text-match:hover:not(:disabled) {
-            background-color: #9a3412;
-        }
-        .btn-text-match.active {
-            background-color: #7c2d12;
-            border-color: #431407;
-        }
-        
-        .btn-export-structure {
-            background-color: #a855f7;
-            color: white;
-            border: 1px solid #9333ea;
-            padding: 9px 16px;
-            font-size: 13px;
-            font-weight: 700;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-export-structure:hover:not(:disabled) {
-            background-color: #9333ea;
-        }
-
-        .btn-view-toggle {
-            background-color: #0284c7;
-            color: white;
-            border: 1px solid #0369a1;
-            padding: 9px 16px;
-            font-size: 13px;
-            font-weight: 700;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-view-toggle:hover:not(:disabled) {
-            background-color: #0369a1;
-        }
-        .btn-view-toggle.active {
-            background-color: #075985;
-            border-color: #0c4a6e;
         }
 
         .lift-container {
             display: flex;
             align-items: center;
             gap: 5px;
-            background-color: #6366f1;
-            border: 1px solid #4338ca;
+            background-color: var(--brand-accent);
+            border: 1px solid var(--brand-ink);
             padding: 4px 12px;
             border-radius: 6px;
             color: white;
@@ -249,8 +193,8 @@
             cursor: not-allowed;
         }
         .lift-container.active {
-            background-color: #4338ca;
-            border-color: #3730a3;
+            background-color: var(--brand-ink);
+            border-color: #1b3340;
         }
 
         #status {
@@ -407,6 +351,55 @@
             color: #334155;
         }
         .th-filter-clear:hover { background: #cbd5e1; }
+
+        .export-filter-modal-box {
+            width: 460px;
+        }
+        .export-filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 14px 0 4px 0;
+        }
+        .export-filter-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            background: #f8fafc;
+            cursor: pointer;
+        }
+        .export-filter-option:hover {
+            background: var(--brand-accent-light);
+            border-color: var(--brand-accent);
+        }
+        .export-filter-option input[type="checkbox"] {
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .export-filter-option .efo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .export-filter-option .efo-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .export-filter-option .efo-desc {
+            font-size: 12.5px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+        .export-filter-option .efo-count {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--brand-accent);
+        }
 
         .modal-overlay {
             display: none;
@@ -857,6 +850,18 @@
     </div>
 </div>
 
+<div id="export-filter-modal-overlay" class="modal-overlay">
+    <div class="modal-box export-filter-modal-box">
+        <h3>Choose Data to Export</h3>
+        <p class="modal-confirm-message">Select which active filter(s) should be applied to the exported Excel file. Untick a filter to exclude it and fall back to the full, unfiltered dataset.</p>
+        <div id="export-filter-options" class="export-filter-options"></div>
+        <div class="modal-actions">
+            <button type="button" class="modal-btn-cancel" onclick="resolveExportFilterModal(null)">Cancel</button>
+            <button type="button" class="modal-btn-save" onclick="confirmExportFilterModal()">Export</button>
+        </div>
+    </div>
+</div>
+
 <script>
 let processedRowsMemory = []; 
 let backupOriginalImport = []; 
@@ -943,6 +948,12 @@ let preHeaderFilterSubset = [];
 let columnFilterSelections = {};
 let columnFilterDraft = null;
 let openFilterColumnIndex = null;
+
+// Remembers the text query last used by the "Filter by Text" toolbar button, so the export
+// filter-selection screen can show users exactly what value is currently active for that
+// filter instead of just its generic name. Cleared whenever a different view filter
+// (including "Show All") replaces it.
+let activeTextFilterValue = null;
 
 const customHeaders = [
     "Node", "Load Case", "FX N.", "FY N.", "FZ N.", 
@@ -1500,14 +1511,21 @@ function injectImagesIntoExcel(xlsxArrayBuffer, statusDiv) {
             return { w: newW, h: newH, ox: (boxW - newW) / 2, oy: 0 };
         }
 
-        // CII coordinate diagram -> G6:J19 (col idx 6-9, row idx 5-18), native size 1035x977 (transparent, content-cropped),
-        // top-aligned and centered horizontally within the box, matching the supplied reference placement
-        const ciiBox = rangeBoxPx(6, 9, 5, 18);
-        const ciiFit = containFitTopAligned(ciiBox.width, ciiBox.height, 1035, 977);
-        const ciiX = Math.round((ciiBox.xOffset + ciiFit.ox) * EMU_PER_PX);
-        const ciiY = Math.round((ciiBox.yOffset + ciiFit.oy) * EMU_PER_PX);
-        const ciiW = Math.round(ciiFit.w * EMU_PER_PX);
-        const ciiH = Math.round(ciiFit.h * EMU_PER_PX);
+        // CII coordinate diagram -> I6:J19 (col idx 8-9, row idx 5-18), kept at a fixed
+        // print size of 2.71in x 2.87in (not scaled to the box) and centered both
+        // horizontally and vertically within that range.
+        const EMU_PER_INCH = 914400;
+        const ciiBox = rangeBoxPx(8, 9, 5, 18);
+        const ciiFixedWIn = 2.71;
+        const ciiFixedHIn = 2.87;
+        const ciiW = Math.round(ciiFixedWIn * EMU_PER_INCH);
+        const ciiH = Math.round(ciiFixedHIn * EMU_PER_INCH);
+        const ciiFixedWPx = ciiFixedWIn * 96;
+        const ciiFixedHPx = ciiFixedHIn * 96;
+        const ciiOffsetX = (ciiBox.width - ciiFixedWPx) / 2;
+        const ciiOffsetY = (ciiBox.height - ciiFixedHPx) / 2;
+        const ciiX = Math.round((ciiBox.xOffset + ciiOffsetX) * EMU_PER_PX);
+        const ciiY = Math.round((ciiBox.yOffset + ciiOffsetY) * EMU_PER_PX);
 
         function b64ToUint8Array(b64) {
             const binary = atob(b64);
@@ -1580,6 +1598,160 @@ function injectImagesIntoExcel(xlsxArrayBuffer, statusDiv) {
             return zip.generateAsync({ type: "blob" });
         });
     });
+}
+
+/* ── Export filter selection ──
+   When the user clicks "Export Loading Info to Excel", we show them checkboxes for
+   whichever toolbar view-filter is currently active (Max FX, Critical Nodes, Filter by
+   Text, etc.) plus a checkbox for the full, unfiltered dataset. They can tick/untick to
+   decide what actually gets written into the workbook. The toolbar filters in this app are
+   mutually exclusive (only one can be active at a time), so in practice there will be at
+   most one filter checkbox alongside the "full dataset" one — but this is written to cope
+   with more than one being active, in case that ever changes. */
+
+function getActiveToolbarFilterDescriptors() {
+    let descriptors = [];
+
+    // Map each filter button to a human label. btn-all is intentionally excluded — that
+    // state already means "no filter", i.e. the full dataset, which has its own checkbox.
+    let simpleButtonLabels = {
+        'btn-fx': 'Max FX',
+        'btn-fy': 'Max FY',
+        'btn-fz': 'Max FZ',
+        'btn-critical-fx': 'Filter Critical Nodes for Fx',
+        'btn-critical-fz': 'Filter Critical Nodes for Fz',
+        'btn-uplift-force': 'Nodes with Uplift Force'
+    };
+
+    Object.keys(simpleButtonLabels).forEach(function(btnId) {
+        let btn = document.getElementById(btnId);
+        if (btn && btn.classList.contains('active')) {
+            descriptors.push({ id: btnId, label: simpleButtonLabels[btnId] });
+        }
+    });
+
+    // Filter by Text — shown with the actual search value the user entered, not just the
+    // generic button name, so it's clear exactly what text is being matched on export.
+    let textFilterBtn = document.getElementById('btn-filter-text');
+    if (textFilterBtn && textFilterBtn.classList.contains('active')) {
+        let textLabel = activeTextFilterValue ? `Filter by Text: "${activeTextFilterValue}"` : 'Filter by Text';
+        descriptors.push({ id: 'btn-filter-text', label: textLabel });
+    }
+
+    // User-defined threshold filters (FX/FY/FZ limited by user) — include the case selected
+    // in their dropdown, if any, so the checkbox label is self-explanatory.
+    let userThresholdMap = [
+        { btnId: 'btn-user-fx', wrapperId: 'user-fx-wrapper', selectId: 'select-user-fx-case', label: 'Filter FX limited by User' },
+        { btnId: 'btn-user-fy', wrapperId: 'user-fy-wrapper', selectId: 'select-user-fy-case', label: 'Filter FY limited by User' },
+        { btnId: 'btn-user-fz', wrapperId: 'user-fz-wrapper', selectId: 'select-user-fz-case', label: 'Filter FZ limited by User' }
+    ];
+    userThresholdMap.forEach(function(entry) {
+        let btn = document.getElementById(entry.btnId);
+        if (btn && btn.classList.contains('active')) {
+            let select = document.getElementById(entry.selectId);
+            let caseText = (select && select.value && select.value !== 'all') ? ` (Load Case "${select.options[select.selectedIndex].text}")` : '';
+            descriptors.push({ id: entry.btnId, label: entry.label + caseText });
+        }
+    });
+
+    // Lifting Off Cases filter — tracked via the wrapper's active state, since it has no
+    // dedicated button of its own.
+    let liftWrapper = document.getElementById('lift-wrapper');
+    if (liftWrapper && liftWrapper.classList.contains('active')) {
+        let select = document.getElementById('select-lift-case');
+        let caseText = (select && select.value && select.value !== 'all' && select.value !== '') ? ` (Load Case "${select.options[select.selectedIndex].text}")` : ' (all Load Cases)';
+        descriptors.push({ id: 'lift-wrapper', label: 'Lifting Off Support Nodes' + caseText });
+    }
+
+    return descriptors;
+}
+
+let exportFilterModalResolver = null;
+
+function requestExportFilterChoice() {
+    let activeFilters = getActiveToolbarFilterDescriptors();
+    let optionsContainer = document.getElementById('export-filter-options');
+    optionsContainer.innerHTML = '';
+
+    let filteredRowCount = currentFilteredSubset ? currentFilteredSubset.length : 0;
+    let fullRowCount = processedRowsMemory ? processedRowsMemory.length : 0;
+
+    // One checkbox per currently active filter, pre-checked since that's almost always what
+    // the user wants to export. Each one maps to the same underlying filtered dataset
+    // (currentFilteredSubset), since the toolbar filters are mutually exclusive in this app.
+    activeFilters.forEach(function(descriptor, idx) {
+        let row = document.createElement('label');
+        row.className = 'export-filter-option';
+        row.innerHTML = `
+            <input type="checkbox" id="export-filter-cb-${idx}" data-kind="filtered" checked>
+            <div class="efo-text">
+                <span class="efo-title">${descriptor.label}</span>
+                <span class="efo-desc">Active filter currently applied to the table.</span>
+                <span class="efo-count">${filteredRowCount} row${filteredRowCount === 1 ? '' : 's'} will be exported</span>
+            </div>
+        `;
+        optionsContainer.appendChild(row);
+    });
+
+    // Full-dataset checkbox is always offered. It's checked by default only when no filter
+    // is currently active; otherwise it starts unchecked (but the user can still tick it).
+    let fullRow = document.createElement('label');
+    fullRow.className = 'export-filter-option';
+    fullRow.innerHTML = `
+        <input type="checkbox" id="export-filter-cb-full" data-kind="full" ${activeFilters.length === 0 ? 'checked' : ''}>
+        <div class="efo-text">
+            <span class="efo-title">Export full data (no filters)</span>
+            <span class="efo-desc">All rows, ignoring any active filter.</span>
+            <span class="efo-count">${fullRowCount} row${fullRowCount === 1 ? '' : 's'} will be exported</span>
+        </div>
+    `;
+    optionsContainer.appendChild(fullRow);
+
+    document.getElementById('export-filter-modal-overlay').classList.add('active');
+
+    return new Promise(function(resolve) {
+        exportFilterModalResolver = resolve;
+    });
+}
+
+function confirmExportFilterModal() {
+    let optionsContainer = document.getElementById('export-filter-options');
+    let checkboxes = optionsContainer.querySelectorAll('input[type="checkbox"]');
+    let filteredChecked = false;
+    let fullChecked = false;
+
+    checkboxes.forEach(function(cb) {
+        if (cb.getAttribute('data-kind') === 'full') {
+            fullChecked = cb.checked;
+        } else if (cb.checked) {
+            filteredChecked = true;
+        }
+    });
+
+    if (!filteredChecked && !fullChecked) {
+        alert("Please select at least one option to export.");
+        return;
+    }
+
+    document.getElementById('export-filter-modal-overlay').classList.remove('active');
+
+    // If the full dataset is checked, that takes priority (it's a superset of any filtered
+    // view), matching the previous "Reset Filters?" behavior. Otherwise, the active filtered
+    // view that's still ticked gets exported as-is.
+    let result = { useFullDataset: fullChecked || !filteredChecked };
+
+    if (exportFilterModalResolver) {
+        exportFilterModalResolver(result);
+        exportFilterModalResolver = null;
+    }
+}
+
+function resolveExportFilterModal(result) {
+    document.getElementById('export-filter-modal-overlay').classList.remove('active');
+    if (exportFilterModalResolver) {
+        exportFilterModalResolver(result);
+        exportFilterModalResolver = null;
+    }
 }
 
 function handleLoadingInfoToStructure() {
@@ -1684,8 +1856,78 @@ function cancelTitleBlockModal() {
     }
 }
 
+function clearBlankCellsFromRange(ws, startRowIdx) {
+    // Removes the *content* of any cell from startRowIdx (0-indexed; 21 = Excel row 22)
+    // down to the last used row/column, but only when that cell is actually blank
+    // (empty string, null, or undefined). Cells that already hold a real value — including
+    // a legitimate "0" — are left untouched. Cell styling (borders, fill, font, alignment)
+    // is preserved; only the displayed content is cleared, so the cell still renders as part
+    // of the table grid — including its border — just with nothing printed inside it.
+    //
+    // Note: cells are kept as a styled empty string (t:'s', v:'') rather than switched to a
+    // "blank" stub type (t:'z'). Some XLSX writers omit the style reference for true blank
+    // stub cells when they carry no value, which would silently drop the cell's border —
+    // keeping an empty string value avoids that and guarantees the border still renders.
+    if (!ws['!ref']) return;
+    let range = XLSX.utils.decode_range(ws['!ref']);
+    let lastRow = range.e.r;
+    let lastCol = range.e.c;
+
+    for (let r = startRowIdx; r <= lastRow; r++) {
+        for (let c = range.s.c; c <= lastCol; c++) {
+            let cellRef = XLSX.utils.encode_cell({ r: r, c: c });
+            let cell = ws[cellRef];
+            if (!cell) continue;
+
+            let isBlank = (cell.v === undefined || cell.v === null || String(cell.v).trim() === '');
+            if (isBlank) {
+                cell.t = 's';
+                cell.v = '';
+                delete cell.w;  // cached formatted text, if any
+                delete cell.r;  // cached rich text, if any
+                delete cell.f;  // formula, if any (shouldn't be present here, but just in case)
+            }
+        }
+    }
+}
+
+function clearColumnsFWhereColumnCFilled(ws, startRowIdx) {
+    // Business rule: for every data row (startRowIdx, 0-indexed, downward), if column C
+    // (index 2 — Node No.) holds a non-blank value, the content of columns F through J
+    // (indices 5-9 — FY N., FZ N., Dx mm., Dy mm., Dz mm.) is cleared on that same row.
+    // Styling (borders, fill, font, alignment) is preserved — only the displayed value is
+    // removed — matching the same "styled empty string" approach used for blank-cell cleanup.
+    if (!ws['!ref']) return;
+    let range = XLSX.utils.decode_range(ws['!ref']);
+    let lastRow = range.e.r;
+    const COL_C = 2;
+    const COL_F = 5;
+    const COL_J = 9;
+
+    for (let r = startRowIdx; r <= lastRow; r++) {
+        let colCRef = XLSX.utils.encode_cell({ r: r, c: COL_C });
+        let colCCell = ws[colCRef];
+        let colCHasValue = colCCell && colCCell.v !== undefined && colCCell.v !== null && String(colCCell.v).trim() !== '';
+
+        if (!colCHasValue) continue;
+
+        for (let c = COL_F; c <= COL_J; c++) {
+            let cellRef = XLSX.utils.encode_cell({ r: r, c: c });
+            let cell = ws[cellRef];
+            if (!cell) continue;
+
+            cell.t = 's';
+            cell.v = '';
+            delete cell.w;
+            delete cell.r;
+            delete cell.f;
+        }
+    }
+}
+
 function deleteSheetRow(ws, rowIndexToDelete) {
     // Removes the given 0-indexed row entirely from the worksheet, shifting every
+
     // row below it up by one (cells, merges, and row-height entries included).
     let range = XLSX.utils.decode_range(ws['!ref']);
 
@@ -1730,12 +1972,16 @@ function deleteSheetRow(ws, rowIndexToDelete) {
 }
 
 async function proceedWithExport(titleBlockValues) {
-    let resetFilters = await askYesNo("Reset Filters?", "Do you want to reset all filters to export the full dataset?");
-    if (resetFilters) {
+    let exportChoice = await requestExportFilterChoice();
+    if (exportChoice === null) return; // user cancelled
+
+    let workingDataset = exportChoice.useFullDataset ? processedRowsMemory : currentFilteredSubset;
+    if (exportChoice.useFullDataset) {
+        // Mirrors the previous "reset filters" behavior: visibly reset the on-screen view to
+        // the full dataset so what's displayed matches what just got exported.
         executeViewFilter('all');
     }
 
-    let workingDataset = resetFilters ? processedRowsMemory : currentFilteredSubset;
     if (!workingDataset || workingDataset.length === 0) {
         alert("There is no active data matching the criteria to process.");
         return;
@@ -2060,9 +2306,19 @@ async function proceedWithExport(titleBlockValues) {
 
         // Row 22 (the first data row) is only removed when exporting the full, unfiltered
         // dataset. When the export is based on a filtered view, row 22 is kept intact.
-        if (resetFilters) {
+        if (exportChoice.useFullDataset) {
             deleteSheetRow(ws, 21);
         }
+
+        // Per spec: before saving, strip out any cell content in the range A22 through the
+        // last used cell that is blank/empty, so no stray empty-string cell objects linger
+        // in the exported workbook (Excel will show these as genuinely empty rather than
+        // containing an invisible empty string).
+        clearBlankCellsFromRange(ws, 21);
+
+        // Per spec: for every data row, if column C (Node No.) is filled in, the content of
+        // columns F through J on that row is cleared.
+        clearColumnsFWhereColumnCFilled(ws, 21);
 
         XLSX.utils.book_append_sheet(wb, ws, "Piping Loads to Civil");
 
@@ -2167,6 +2423,7 @@ async function executeViewFilter(type) {
     document.getElementById('user-fx-wrapper').classList.remove('active');
     document.getElementById('user-fy-wrapper').classList.remove('active');
     document.getElementById('user-fz-wrapper').classList.remove('active');
+    activeTextFilterValue = null;
     
     if (type === 'all') {
         document.getElementById('btn-all').classList.add('active');
@@ -2217,6 +2474,7 @@ async function executeViewFilter(type) {
         }
 
         document.getElementById('btn-filter-text').classList.add('active');
+        activeTextFilterValue = textInput;
 
         let matchedSectionRows = [];
         let sectionCaptureActive = false;
