@@ -1,6 +1,6 @@
 import os
 import sys
-import webbrowser
+import webview
 import tkinter as tk
 from tkinter import messagebox
 from pathlib import Path
@@ -10,10 +10,8 @@ ALLOWED_USERS = ["mohammed.ali2", "admin", "jafar.al-tarouti", "mohammedahmedali
 
 # --- EMBEDDED FILE LOGIC ---
 if getattr(sys, 'frozen', False):
-    # This path is used when running from the .exe
     BASE_DIR = Path(sys._MEIPASS)
 else:
-    # This path is used when running as a normal script
     BASE_DIR = Path(__file__).parent
 
 HTML_FILE = BASE_DIR / "piping_loading_tool.html"
@@ -28,7 +26,9 @@ def main():
         sys.exit(1)
 
     if HTML_FILE.exists():
-        webbrowser.open(HTML_FILE.absolute().as_uri())
+        # Forces opening in a native app window, not a browser
+        webview.create_window('Piping Loading Tool', str(HTML_FILE.absolute()))
+        webview.start()
     else:
         messagebox.showerror("Error", f"Embedded tool file not found at {HTML_FILE}")
 
