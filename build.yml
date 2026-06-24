@@ -10,9 +10,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      # Added pywebview to the install command
-      - run: pip install pyinstaller pywebview
       
+      # Install both dependencies required for the new standalone window logic
+      - name: Install dependencies
+        run: pip install pyinstaller pywebview
+      
+      # Build the EXE bundling the HTML file
       - run: pyinstaller --onefile --noconsole --name "Open_Piping_Tool" --add-data "piping_loading_tool.html;." launcher.py
       
       - uses: actions/upload-artifact@v4
