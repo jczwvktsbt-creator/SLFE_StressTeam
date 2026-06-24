@@ -6,8 +6,8 @@ from tkinter import messagebox
 from pathlib import Path
 
 # --- AUTHORISED USERS ---
-# Ensure your Windows username (from 'whoami') is in this list
-ALLOWED_USERS = ["mohammed.ali2", "admin", "jafar.al-tarouti", "mohammedahmedalisult", "slfe\mohammed.ali2"]
+# ADD YOUR USERNAME HERE (Must be lowercase)
+ALLOWED_USERS = ["mohammed.ali2", "admin", "jafar.al-tarouti", "mohammedahmedalisult"]
 
 # --- EMBEDDED FILE LOGIC ---
 if getattr(sys, 'frozen', False):
@@ -22,13 +22,13 @@ def get_windows_username():
 
 def main():
     username = get_windows_username()
-    # Check if username is authorized
+    # If your username isn't in this list, access is denied
     if username not in [u.lower() for u in ALLOWED_USERS]:
-        messagebox.showerror("Access Denied", f"User '{username}' is not authorised to use this tool.")
+        messagebox.showerror("Access Denied", f"User '{username}' is not authorised.")
         sys.exit(1)
 
     if HTML_FILE.exists():
-        # Creates a standalone window instead of opening in a browser
+        # Forces opening in a native app window, not a browser
         webview.create_window('Piping Loading Tool', str(HTML_FILE.absolute()))
         webview.start()
     else:
