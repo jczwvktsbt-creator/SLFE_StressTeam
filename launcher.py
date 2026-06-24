@@ -10,10 +10,8 @@ ALLOWED_USERS = ["mohammed.ali2", "admin", "jafar.al-tarouti", "mohammedahmedali
 
 # --- EMBEDDED FILE LOGIC ---
 if getattr(sys, 'frozen', False):
-    # This path is used when running from the .exe
     BASE_DIR = Path(sys._MEIPASS)
 else:
-    # This path is used when running as a normal script
     BASE_DIR = Path(__file__).parent
 
 HTML_FILE = BASE_DIR / "piping_loading_tool.html"
@@ -28,7 +26,7 @@ def main():
         sys.exit(1)
 
     if HTML_FILE.exists():
-        # Forces opening in a native app window, not a browser
+        # This opens the HTML file in a dedicated, standalone application window
         webview.create_window('Piping Loading Tool', str(HTML_FILE.absolute()))
         webview.start()
     else:
