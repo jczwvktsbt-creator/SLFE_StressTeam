@@ -7,7 +7,7 @@ from pathlib import Path
 
 # --- AUTHORISED USERS ---
 # Ensure your Windows username (from 'whoami') is in this list
-ALLOWED_USERS = ["mohammed.ali2", "admin", "jafar.al-tarouti", "mohammedahmedalisult"]
+ALLOWED_USERS = ["mohammed.ali2", "admin", "jafar.al-tarouti", "mohammedahmedalisult", "slfe\mohammed.ali2"]
 
 # --- EMBEDDED FILE LOGIC ---
 if getattr(sys, 'frozen', False):
