@@ -11,16 +11,14 @@ jobs:
         with:
           python-version: '3.11'
       
-      # Added pywebview to ensure it is installed for the build
+      # Install both dependencies for the standalone window
       - name: Install dependencies
         run: pip install pyinstaller pywebview
       
-      - name: Build EXE (with HTML bundled inside)
-        run: |
-          pyinstaller --onefile --noconsole --name "Open_Piping_Tool" --add-data "piping_loading_tool.html;." launcher.py
+      # Build the EXE bundling the HTML file
+      - run: pyinstaller --onefile --noconsole --name "Open_Piping_Tool" --add-data "piping_loading_tool.html;." launcher.py
       
-      - name: Upload EXE as artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: Open_Piping_Tool_Executable
           path: dist/Open_Piping_Tool.exe
