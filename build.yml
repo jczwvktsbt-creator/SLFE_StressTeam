@@ -11,7 +11,7 @@ jobs:
         with:
           python-version: '3.11'
       
-      # Install both dependencies required for the new standalone window logic
+      # Install both dependencies for the standalone window
       - name: Install dependencies
         run: pip install pyinstaller pywebview
       
