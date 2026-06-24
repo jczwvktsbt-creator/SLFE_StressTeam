@@ -1,36 +1,21 @@
-import os
-import sys
-import webview 
-from pathlib import Path
-import tkinter as tk
-from tkinter import messagebox
+name: Build Windows EXE
 
-# --- AUTHORISED USERS ---
-ALLOWED_USERS = ["mohammed.ali2", "admin", "jafar.al-tarouti", "mohammedahmedalisult"]
+on: [push, workflow_dispatch]
 
-# --- EMBEDDED FILE LOGIC ---
-if getattr(sys, 'frozen', False):
-    BASE_DIR = Path(sys._MEIPASS)
-else:
-    BASE_DIR = Path(__file__).parent
-
-HTML_FILE = BASE_DIR / "piping_loading_tool.html"
-
-def get_windows_username():
-    return os.environ.get("USERNAME", "").strip().lower()
-
-def main():
-    username = get_windows_username()
-    if username not in [u.lower() for u in ALLOWED_USERS]:
-        messagebox.showerror("Access Denied", f"User '{username}' is not authorised.")
-        sys.exit(1)
-
-    if HTML_FILE.exists():
-        # This opens the HTML file in a dedicated, borderless window
-        webview.create_window('Piping Loading Tool', str(HTML_FILE.absolute()), js_api=None)
-        webview.start()
-    else:
-        messagebox.showerror("Error", f"Embedded tool file not found at {HTML_FILE}")
-
-if __name__ == "__main__":
-    main()
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      # Added pywebview to the install command
+      - run: pip install pyinstaller pywebview
+      
+      - run: pyinstaller --onefile --noconsole --name "Open_Piping_Tool" --add-data "piping_loading_tool.html;." launcher.py
+      
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Open_Piping_Tool_Executable
+          path: dist/Open_Piping_Tool.exe
